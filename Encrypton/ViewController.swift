@@ -7,34 +7,39 @@
 //
 import UIKit
 
-class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate {
+class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate, UITabBarControllerDelegate {
 
     @IBOutlet weak var decryptedText: UITextView!
     @IBOutlet weak var texttoEncrypt: UITextView!
     @IBOutlet weak var originalImage: UIImageView!
     @IBOutlet weak var encriptedImage: UIImageView!
-
+    @IBOutlet weak var tabBar: UITabBar!
     
-    let key:     [[Int]]    = [[3,1],[5,2]]//Matriz llave
-    let deKey:   [[Int]]    = [[2,-1],[-5,3]]//Matriz Inversa de llave
+    let key:     [[Int]]    = [[3,1],
+                               [5,2]]//Matriz llave
+    let deKey:   [[Int]]    = [[2,-1],
+                               [-5,3]]//Matriz Inversa de llave
     var A:       [[Int]]    = [[]]//Matrices
     var B:       [[Int]]    = [[]]//Resultado
     var toImage: [Int]      = []
     var temp:    [Int]      = []
     var imagePicker         = UIImagePickerController()
     var select:   Int       = 1//Selector para la imagen si 1 entonces original si 2 entonces encriptada
+    var alphabet: [Character:Int] = [" ":0,"a":1,"b":2,"c":3,"d":4,"e":5,"f":6,"g":7,"h":8,"i":9,"j":10,"k":11,"l":12,"m":13,"n":14,"o":15,"p":16,"q":17,"r":18,"s":19,"t":20,"u":21,"v":22,"w":23,"x":24,"y":25,"z":26,"A":27,"B":28,"C":29,"D":30,"E":31,"F":32,"G":33,"H":34,"I":35,"J":36,"K":37,"L":38,"M":39,"N":40,"O":41,"P":42,"Q":43,"R":44,"S":45,"T":46,"U":47,"V":48,"W":49,"X":50,"Y":51,"Z":52,"ñ":53,"Ñ":54,"!":55,"?":56,"¡":57,"¿":58,"=":59,"@":60,"#":61,"$":62,"%":63,"^":64,"&":65,"*":66,"(":67,")":68,"-":69,"_":70,"[":71,"]":72,";":73,":":74,"/":75,"<":76,">":77,".":78,",":79,"|":80,"á":81,"é":82,"í":83,"ó":84,"ú":85,"Á":86,"É":87,"Í":88,"Ó":89,"Ú":90]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.texttoEncrypt.delegate = self
-        texttoEncrypt.textColor = UIColor.lightGrayColor()
-        originalImage.contentMode = UIViewContentMode.ScaleAspectFit
-        encriptedImage.contentMode = UIViewContentMode.ScaleAspectFit
+        //self.texttoEncrypt.delegate = self
+        //texttoEncrypt.textColor = UIColor.lightGrayColor()
+        //originalImage.contentMode = UIViewContentMode.ScaleAspectFit
+        //encriptedImage.contentMode = UIViewContentMode.ScaleAspectFit
 
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    
     func textViewDidBeginEditing(textView: UITextView) {
         if textView.textColor == UIColor.lightGrayColor() {
             textView.text = ""
@@ -50,7 +55,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     func alertd(){
         let alert = UIAlertController(title: "Error", message: "Es necesario una imagen para poder desencriptar", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.presentViewController(alert, animated: true, completion: nil)//ham
         
     }
 
@@ -175,7 +180,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         texttoEncrypt.resignFirstResponder()
     }
     //Acciones de boton
-    @IBAction func Add(sender: UIBarButtonItem){
+    @IBAction func Add(sender: UIButton){
         select = 1
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.SavedPhotosAlbum){
             imagePicker.delegate = self
@@ -185,7 +190,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         }
     }
     //Borrar todo
-    @IBAction func ClearAll(sender: UIBarButtonItem){
+    @IBAction func ClearAll(sender: UIButton){
         texttoEncrypt.text = "*Escribe el mensaje aqui*"
         texttoEncrypt.textColor = UIColor.lightGrayColor()
         decryptedText.text = "Mensaje desencriptado"
@@ -193,7 +198,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         originalImage.image = nil
     }
     //Añadir imagen encriptada a la aplicacion
-    @IBAction func AddEncrypted(sender: UIBarButtonItem){
+    @IBAction func AddEncrypted(sender: UIButton){
         select = 2
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.SavedPhotosAlbum){
             imagePicker.delegate = self
@@ -219,72 +224,38 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         UIGraphicsEndImageContext();
         return normalizedImage;
     }
+    //Acceder al diccionario
+    func findKeyForChar(value: Character, dictionary: [Character:Int]) ->Int!
+    {
+        for (letter, number) in dictionary
+        {
+            if (letter == value)
+            {
+                return number
+            }
+        }
+        
+        return nil
+    }
+    func findKeyForValue(value: Int, dictionary: [Character:Int]) ->Character!
+    {
+        for (letter, number) in dictionary
+        {
+            if (number == value)
+            {
+                return letter
+            }
+        }
+        
+        return nil
+    }
     //Acciones de encriptar
     func encryption(){
         
         var transform: [Int] = []
         var mov: Int = 0
         for character in (texttoEncrypt.text?.characters)!{//Leer el texto escrito y acomodarlo en array
-            switch(character){
-            case "a": transform += [1]
-            case "b": transform += [2]
-            case "c": transform += [3]
-            case "d": transform += [4]
-            case "e": transform += [5]
-            case "f": transform += [6]
-            case "g": transform += [7]
-            case "h": transform += [8]
-            case "i": transform += [9]
-            case "j": transform += [10]
-            case "k": transform += [11]
-            case "l": transform += [12]
-            case "m": transform += [13]
-            case "n": transform += [14]
-            case "o": transform += [15]
-            case "p": transform += [16]
-            case "q": transform += [17]
-            case "r": transform += [18]
-            case "s": transform += [19]
-            case "t": transform += [20]
-            case "u": transform += [21]
-            case "v": transform += [22]
-            case "w": transform += [23]
-            case "x": transform += [24]
-            case "y": transform += [25]
-            case "z": transform += [26]
-            case " ": transform += [0]
-            case "A": transform += [27]
-            case "B": transform += [28]
-            case "C": transform += [29]
-            case "D": transform += [30]
-            case "E": transform += [31]
-            case "F": transform += [32]
-            case "G": transform += [33]
-            case "H": transform += [34]
-            case "I": transform += [35]
-            case "J": transform += [36]
-            case "K": transform += [37]
-            case "L": transform += [38]
-            case "M": transform += [39]
-            case "N": transform += [40]
-            case "O": transform += [41]
-            case "P": transform += [42]
-            case "Q": transform += [43]
-            case "R": transform += [44]
-            case "S": transform += [45]
-            case "T": transform += [46]
-            case "U": transform += [47]
-            case "V": transform += [48]
-            case "W": transform += [49]
-            case "X": transform += [50]
-            case "Y": transform += [51]
-            case "Z": transform += [52]
-            case "ñ": transform += [53]
-            case "Ñ": transform += [54]
-            case "?": transform += [55]
-            case "!": transform += [56]
-            default: transform += [0]
-            }
+            transform.append(findKeyForChar(character, dictionary: alphabet))
         }
         if((transform.count % 2) != 0){//Numero de letras y/o espacios es impar +1 para que se pueda hacer las operaciones
             transform += [0]
@@ -382,73 +353,16 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
             newA.append(y+y1)
         }
         for character in newA{//Transformar numeros a letras
-            switch(character){
-            case 0: decrypted.appendContentsOf(" ")
-            case 1: decrypted.appendContentsOf("a")
-            case 2: decrypted.appendContentsOf("b")
-            case 3: decrypted.appendContentsOf("c")
-            case 4: decrypted.appendContentsOf("d")
-            case 5: decrypted.appendContentsOf("e")
-            case 6: decrypted.appendContentsOf("f")
-            case 7: decrypted.appendContentsOf("g")
-            case 8: decrypted.appendContentsOf("h")
-            case 9: decrypted.appendContentsOf("i")
-            case 10: decrypted.appendContentsOf("j")
-            case 11: decrypted.appendContentsOf("k")
-            case 12: decrypted.appendContentsOf("l")
-            case 13: decrypted.appendContentsOf("m")
-            case 14: decrypted.appendContentsOf("n")
-            case 15: decrypted.appendContentsOf("o")
-            case 16: decrypted.appendContentsOf("p")
-            case 17: decrypted.appendContentsOf("q")
-            case 18: decrypted.appendContentsOf("r")
-            case 19: decrypted.appendContentsOf("s")
-            case 20: decrypted.appendContentsOf("t")
-            case 21: decrypted.appendContentsOf("u")
-            case 22: decrypted.appendContentsOf("v")
-            case 23: decrypted.appendContentsOf("w")
-            case 24: decrypted.appendContentsOf("x")
-            case 25: decrypted.appendContentsOf("y")
-            case 26: decrypted.appendContentsOf("z")
-            case 27: decrypted.appendContentsOf("A")
-            case 28: decrypted.appendContentsOf("B")
-            case 29: decrypted.appendContentsOf("C")
-            case 30: decrypted.appendContentsOf("D")
-            case 31: decrypted.appendContentsOf("E")
-            case 32: decrypted.appendContentsOf("F")
-            case 33: decrypted.appendContentsOf("G")
-            case 34: decrypted.appendContentsOf("H")
-            case 35: decrypted.appendContentsOf("I")
-            case 36: decrypted.appendContentsOf("J")
-            case 37: decrypted.appendContentsOf("K")
-            case 38: decrypted.appendContentsOf("L")
-            case 39: decrypted.appendContentsOf("M")
-            case 40: decrypted.appendContentsOf("N")
-            case 41: decrypted.appendContentsOf("O")
-            case 42: decrypted.appendContentsOf("P")
-            case 43: decrypted.appendContentsOf("Q")
-            case 44: decrypted.appendContentsOf("R")
-            case 45: decrypted.appendContentsOf("S")
-            case 46: decrypted.appendContentsOf("T")
-            case 47: decrypted.appendContentsOf("U")
-            case 48: decrypted.appendContentsOf("V")
-            case 49: decrypted.appendContentsOf("W")
-            case 50: decrypted.appendContentsOf("X")
-            case 51: decrypted.appendContentsOf("Y")
-            case 52: decrypted.appendContentsOf("Z")
-            case 53: decrypted.appendContentsOf("ñ")
-            case 54: decrypted.appendContentsOf("Ñ")
-            case 55: decrypted.appendContentsOf("?")
-            case 56: decrypted.appendContentsOf("!")
-            default: decrypted.appendContentsOf("≈")
-            }
-            if (decrypted.containsString("≈")){
+            decrypted.appendContentsOf(String(findKeyForValue(character, dictionary: alphabet)))
+            
+            //if (decrypted.containsString("≈")){
+            if(character >= 91){
                 break
             }
         }
-        let delimiter = "≈"//Delimitador para poder cortar las letras o palabras que saca del array y poner solo el mensaje
-        var token = decrypted.componentsSeparatedByString(delimiter)
-        decryptedText.text = token[0]
+        //let delimiter = "≈"//Delimitador para poder cortar las letras o palabras que saca del array y poner solo el mensaje
+        //var token = decrypted.componentsSeparatedByString(delimiter)
+        decryptedText.text = decrypted
 
     }
     @IBAction func Decrypt(sender: UIButton){
