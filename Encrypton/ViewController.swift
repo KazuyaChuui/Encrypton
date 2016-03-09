@@ -7,7 +7,7 @@
 //
 import UIKit
 
-class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate, UITabBarControllerDelegate {
+class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate,UITabBarDelegate {
 
     @IBOutlet weak var decryptedText: UITextView!
     @IBOutlet weak var texttoEncrypt: UITextView!
@@ -33,11 +33,29 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         //texttoEncrypt.textColor = UIColor.lightGrayColor()
         //originalImage.contentMode = UIViewContentMode.ScaleAspectFit
         //encriptedImage.contentMode = UIViewContentMode.ScaleAspectFit
+        PhotoAlbum.init()
 
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    //Manejo de tabs
+    func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
+        if item.tag == 1 {
+            print("Encrypcion")
+            
+        }
+        if item.tag == 2 {
+            print("Decripcion")
+            
+        }
+        if item.tag == 3 {
+            print("More")
+            
+        }
+
+    }
+    //Acciones para barra de tabs
     
     
     func textViewDidBeginEditing(textView: UITextView) {
@@ -46,7 +64,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
             textView.textColor = UIColor.blackColor()
         }
     }
-    //Mensaje de error
+    //Mensajes
     func alerte(){
         let alert = UIAlertController(title: "Error", message: "Es necesario un mensaje y una imagen para poder encriptar", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
@@ -57,6 +75,11 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)//ham
         
+    }
+    func success(){
+        let alert = UIAlertController(title: "Success", message: "La imagen se guardo con exito", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert,animated: true, completion: nil)
     }
 
     //Edicion de imagen: grabar contenido de palabra en rgb de la imagen
@@ -211,7 +234,8 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     @IBAction func Save(sender: UIButton){
         let imageData = UIImagePNGRepresentation(correctlyOrientedImage(encriptedImage.image!))
         let image = UIImage(data: imageData!)
-        UIImageWriteToSavedPhotosAlbum(image!, self, nil, nil)
+        PhotoAlbum.sharedInstance.saveImage(image!)
+        self.success()
     }
     //Modificar la orientacion de la imagen proporcionada
     func correctlyOrientedImage(image: UIImage) -> UIImage {

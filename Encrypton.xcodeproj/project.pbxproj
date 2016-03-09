@@ -38,6 +38,8 @@
 		94A8DE741C8A4395006FC5B2 /* paste.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A8DE681C8A4395006FC5B2 /* paste.png */; };
 		94A8DE751C8A4395006FC5B2 /* save.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A8DE691C8A4395006FC5B2 /* save.png */; };
 		94A8DE761C8A4395006FC5B2 /* share.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A8DE6A1C8A4395006FC5B2 /* share.png */; };
+		94F0C16B1C8FBDFF00B060B0 /* PhotoAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F0C16A1C8FBDFF00B060B0 /* PhotoAlbum.swift */; };
+		94F0C16D1C8FC46800B060B0 /* write.png in Resources */ = {isa = PBXBuildFile; fileRef = 94F0C16C1C8FC46800B060B0 /* write.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +97,8 @@
 		94A8DE681C8A4395006FC5B2 /* paste.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paste.png; sourceTree = "<group>"; };
 		94A8DE691C8A4395006FC5B2 /* save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = save.png; sourceTree = "<group>"; };
 		94A8DE6A1C8A4395006FC5B2 /* share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share.png; sourceTree = "<group>"; };
+		94F0C16A1C8FBDFF00B060B0 /* PhotoAlbum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbum.swift; sourceTree = "<group>"; };
+		94F0C16C1C8FC46800B060B0 /* write.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = write.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +153,7 @@
 			children = (
 				942125751C0151DC00E843D9 /* AppDelegate.swift */,
 				942125771C0151DC00E843D9 /* ViewController.swift */,
+				94F0C16A1C8FBDFF00B060B0 /* PhotoAlbum.swift */,
 				942125791C0151DC00E843D9 /* Main.storyboard */,
 				9421257C1C0151DC00E843D9 /* Assets.xcassets */,
 				9421257E1C0151DC00E843D9 /* LaunchScreen.storyboard */,
@@ -197,6 +202,7 @@
 		94A8DE5E1C8A4395006FC5B2 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				94F0C16C1C8FC46800B060B0 /* write.png */,
 				94A8DE5F1C8A4395006FC5B2 /* camera.png */,
 				94A8DE601C8A4395006FC5B2 /* copy.png */,
 				94A8DE611C8A4395006FC5B2 /* decrypt.png */,
@@ -322,6 +328,7 @@
 				9421257D1C0151DC00E843D9 /* Assets.xcassets in Resources */,
 				9421257B1C0151DC00E843D9 /* Main.storyboard in Resources */,
 				94A8DE751C8A4395006FC5B2 /* save.png in Resources */,
+				94F0C16D1C8FC46800B060B0 /* write.png in Resources */,
 				9490D5D21C3D228200116665 /* Icon-Small@3x.png in Resources */,
 				9490D5D01C3D228200116665 /* Icon-Small.png in Resources */,
 				94A8DE701C8A4395006FC5B2 /* erase.png in Resources */,
@@ -371,6 +378,7 @@
 			files = (
 				942125781C0151DC00E843D9 /* ViewController.swift in Sources */,
 				942125761C0151DC00E843D9 /* AppDelegate.swift in Sources */,
+				94F0C16B1C8FBDFF00B060B0 /* PhotoAlbum.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

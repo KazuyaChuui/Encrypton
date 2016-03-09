@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D13b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E33e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -18,63 +18,78 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5WP-lb-PLL" userLabel="eImage">
-                                <rect key="frame" x="0.0" y="20" width="547" height="528"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5WP-lb-PLL" userLabel="eImage">
+                                <rect key="frame" x="0.0" y="20" width="554" height="528"/>
                             </imageView>
                             <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SKh-Ba-syZ">
                                 <rect key="frame" x="0.0" y="551" width="600" height="49"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <items>
-                                    <tabBarItem title="Encrypt" image="encrypt.png" id="Pof-Xr-TLn"/>
-                                    <tabBarItem title="Decrypt" image="decrypt.png" id="EeD-xV-9gs"/>
-                                    <tabBarItem systemItem="more" id="9Y8-mT-Exi"/>
+                                    <tabBarItem tag="1" title="Encrypt" image="encrypt.png" id="Pof-Xr-TLn"/>
+                                    <tabBarItem tag="2" title="Decrypt" image="decrypt.png" id="EeD-xV-9gs"/>
+                                    <tabBarItem tag="3" systemItem="more" id="9Y8-mT-Exi"/>
                                 </items>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="i6u-k3-LoG"/>
+                                </connections>
                             </tabBar>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="2KJ-HU-wwm">
-                                <rect key="frame" x="555" y="19" width="45" height="530"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="2KJ-HU-wwm">
+                                <rect key="frame" x="555" y="19" width="50" height="527"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n2y-G2-0iV" userLabel="Photo">
-                                        <rect key="frame" x="0.0" y="170" width="30" height="30"/>
+                                        <rect key="frame" x="5" y="48" width="30" height="30"/>
                                         <state key="normal" image="camera.png"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ndf-mA-o2w" userLabel="Image">
-                                        <rect key="frame" x="0.0" y="250" width="30" height="30"/>
+                                        <rect key="frame" x="5" y="128" width="30" height="30"/>
                                         <state key="normal" image="image.png"/>
                                         <connections>
                                             <action selector="Add:" destination="BYZ-38-t0r" eventType="touchUpInside" id="scx-lZ-BZm"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oX7-6i-mSk">
+                                        <rect key="frame" x="1" y="208" width="34" height="34"/>
+                                        <state key="normal" image="paste.png"/>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYn-a9-tte" userLabel="Copy">
-                                        <rect key="frame" x="0.0" y="330" width="30" height="30"/>
+                                        <rect key="frame" x="5" y="292" width="30" height="30"/>
                                         <state key="normal" image="copy.png"/>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UfN-Ze-i4I">
+                                        <rect key="frame" x="5" y="372" width="30" height="30"/>
+                                        <state key="normal" image="save.png"/>
+                                        <connections>
+                                            <action selector="Save:" destination="BYZ-38-t0r" eventType="touchUpInside" id="x4W-jm-fKL"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u3s-mP-fVb">
+                                        <rect key="frame" x="0.0" y="452" width="35" height="35"/>
+                                        <state key="normal" image="write.png"/>
+                                    </button>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="aYn-a9-tte" firstAttribute="centerX" secondItem="2KJ-HU-wwm" secondAttribute="centerX" constant="-7.5" id="0U2-wF-Lzj"/>
-                                    <constraint firstItem="Ndf-mA-o2w" firstAttribute="centerX" secondItem="2KJ-HU-wwm" secondAttribute="centerX" constant="-7.5" id="9cb-ep-qWd"/>
-                                    <constraint firstItem="n2y-G2-0iV" firstAttribute="centerX" secondItem="2KJ-HU-wwm" secondAttribute="centerX" constant="-7.5" id="b0e-Xe-cdg"/>
-                                </constraints>
-                                <edgeInsets key="layoutMargins" top="170" left="0.0" bottom="170" right="15"/>
+                                <edgeInsets key="layoutMargins" top="48" left="0.0" bottom="40" right="15"/>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="SKh-Ba-syZ" firstAttribute="leading" secondItem="5WP-lb-PLL" secondAttribute="leading" id="49M-EM-iOj"/>
-                            <constraint firstItem="SKh-Ba-syZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="53B-zD-FcL"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="5WP-lb-PLL" secondAttribute="trailing" constant="26" id="5hN-PS-zQz"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="2KJ-HU-wwm" secondAttribute="trailing" constant="-20" id="61F-BU-4JL"/>
-                            <constraint firstItem="SKh-Ba-syZ" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottomMargin" id="90W-hd-73R"/>
-                            <constraint firstItem="SKh-Ba-syZ" firstAttribute="top" secondItem="2KJ-HU-wwm" secondAttribute="bottom" constant="2" id="aVv-vL-tH2"/>
-                            <constraint firstItem="SKh-Ba-syZ" firstAttribute="trailing" secondItem="2KJ-HU-wwm" secondAttribute="trailing" id="dAh-Xi-r36"/>
-                            <constraint firstItem="5WP-lb-PLL" firstAttribute="top" secondItem="2KJ-HU-wwm" secondAttribute="top" constant="1" id="fR9-Ce-4GR"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="5WP-lb-PLL" secondAttribute="bottom" constant="8" symbolic="YES" id="izU-nQ-kgf"/>
-                            <constraint firstItem="2KJ-HU-wwm" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-1" id="weP-yD-oOV"/>
+                            <constraint firstItem="SKh-Ba-syZ" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottomMargin" id="Ab2-y7-O9x"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="SKh-Ba-syZ" secondAttribute="trailing" constant="-20" id="EaE-FI-ahQ"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="5WP-lb-PLL" secondAttribute="bottom" constant="8" symbolic="YES" id="FpK-Uc-Sim"/>
+                            <constraint firstItem="5WP-lb-PLL" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="NSg-tb-Jha"/>
+                            <constraint firstItem="2KJ-HU-wwm" firstAttribute="leading" secondItem="5WP-lb-PLL" secondAttribute="trailing" constant="1" id="Q4W-qV-Zxn"/>
+                            <constraint firstItem="SKh-Ba-syZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="QWY-Cl-iPa"/>
+                            <constraint firstItem="2KJ-HU-wwm" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="19" id="g5k-Rd-OyC"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2KJ-HU-wwm" secondAttribute="trailing" constant="-25" id="pzW-h4-4Mw"/>
+                            <constraint firstItem="5WP-lb-PLL" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="tH3-V0-odx"/>
+                            <constraint firstItem="2KJ-HU-wwm" firstAttribute="leading" secondItem="5WP-lb-PLL" secondAttribute="trailing" constant="1" id="um6-xF-LOj"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="encriptedImage" destination="5WP-lb-PLL" id="wfh-1e-coL"/>
                         <outlet property="originalImage" destination="5WP-lb-PLL" id="nsk-Jy-jcq"/>
+                        <outlet property="tabBar" destination="SKh-Ba-syZ" id="1Nb-0y-ZHH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -88,5 +103,8 @@
         <image name="decrypt.png" width="38" height="40"/>
         <image name="encrypt.png" width="40" height="40"/>
         <image name="image.png" width="30" height="30"/>
+        <image name="paste.png" width="34" height="34"/>
+        <image name="save.png" width="30" height="30"/>
+        <image name="write.png" width="35" height="35"/>
     </resources>
 </document>
